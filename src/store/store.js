@@ -1,12 +1,12 @@
 import thunk from "redux-thunk";
 import { applyMiddleware, createStore } from "redux";
-import rootReducer from "../reducers";
+import weatherReducer from "../reducers/index";
 
 //---middleware
 const middleware = applyMiddleware(thunk);
 
 //---store
-const store = createStore(rootReducer, middleware);
+const store = createStore(weatherReducer, middleware);
 
 export default store;
 

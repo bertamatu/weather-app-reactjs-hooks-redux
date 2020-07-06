@@ -1,20 +1,25 @@
-// import axios from "axios";
+import axios from "axios";
 
-// export default function fetchWeather(city) {
-//   const API_KEY = `cd490f1761d42b116cbb4a0d2dfc84bf`;
-//   return async function (dispatch) {
-//     await axios
-//       .get(
-//         `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${city}`,
-//         { headers: { "content-type": "application/json; Charset=UTF-8" } }
-//       )
-//       .then((data) => {
-//         //dispatch the action
-//         dispatch({ type: "FETCH_WEATHER", payload: data });
-//         console.log("fetchWeather() DATA >>>", data);
-//       })
-//       .catch((error) => {
-//         console.log("fetchWeather() >>> ERROR", error);
-//       });
-//   };
-// }
+export default function fetchWeather(city) {
+  return function (dispatch) {
+    dispatch({ type: "FETCH_WEATHER_PENDING" });
+    return axios
+      .get(
+        `http://api.weatherstack.com/current?access_key=cd490f1761d42b116cbb4a0d2dfc84bf&query=${city}`
+      )
+      .then((result) => {
+        //dispatch the action
+        const data = result.data;
+        console.log("fetchWeather() DATA", data);
+        const { error } = data;
+        if (error) {
+          throw error;
+        }
+        dispatch({ type: "FETCH_WEATHER_SUCCESS", payload: result.data });
+      })
+      .catch((error) => {
+        dispatch({ type: "FETCH_WEATHER_ERROR", error: error });
+        console.log("fetchWeather() >>> ERROR", error);
+      });
+  };
+}

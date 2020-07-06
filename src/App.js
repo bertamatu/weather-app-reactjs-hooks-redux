@@ -1,74 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import fetchWeather from "./actions/fetchWeather";
 
+function ErrorMessage() {
+  const weatherError = useSelector((state) => state.weatherInfo.error);
+  if (weatherError === undefined || weatherError === null) return null;
+  return (
+    <section>
+      <h6 style={{ color: "red" }}>{weatherError.info}</h6>
+    </section>
+  );
+}
+
+function Location(props) {
+  if (props && props.location === undefined) return null;
+  const location = props.location;
+  return (
+    <section>
+      In {location.name}, {location.country} (Lang:{location.lat}, Lon:
+      {location.lon})
+    </section>
+  );
+}
+
+function WeatherInformation(props) {
+  if (!props || props.info === undefined) return null;
+  const info = props.info;
+  const weatherDescription =
+    info.weather_descriptions.length > 0 ? info.weather_descriptions[0] : null;
+  const weatherImage =
+    info.weather_icons.length > 0 ? info.weather_icons[0] : null;
+
+  return (
+    <section>
+      <p>
+        It is {weatherDescription} <img src={weatherImage} alt="weather" />
+      </p>
+      <br />
+      <p>
+        The temperature is {info.temperature}C, but feels like {info.feelslike}
+        C.
+      </p>
+    </section>
+  );
+}
+
+function WeatherSection() {
+  const weatherInfo = useSelector((state) => state.weatherInfo.info);
+  const { location, current } = weatherInfo;
+
+  console.log("WEATHER SECTION", weatherInfo, +new Date());
+  return (
+    <section>
+      <Location location={location} />
+      <WeatherInformation info={current} />
+    </section>
+  );
+}
 function App() {
   const [city, setCity] = useState("");
-  const [weatherDetails, setWeatherDetails] = useState([]);
-  const weatherSelector = useSelector((state) => state.weatherInfo);
-
   const dispatch = useDispatch();
-  // const getWeatherInfoAction = (city) => dispatch(fetchWeather(city));
 
-  // const errorMessage = "Please enter a city name...";
-  // const getWeatherInfo = (e) => {
-  //   if (e) e.preventDefault();
-  //   if (city === "") {
-  //     console.log(errorMessage);
-  //   } else {
-  //     fetchWeather(city);
-  //     // console.log("weatherSelector ---..... >", weatherSelector);
-  //   }
-  // };
+  const getWeatherInfo = (e) => {
+    if (e) e.preventDefault();
+    dispatch(fetchWeather(city));
+  };
 
-  // const weatherDetails = [];
-  // if (
-  //   weatherSelector.weatherReducer &&
-  //   weatherSelector.hasOwnProperty("location")
-  // ) {
-  //   const weatherDetails = (
-  //     <p>{weatherSelector.weatherReducer.data.location.country}</p>
-  //   );
-  // } else {
-  //   const weatherDetails = (
-  //     <h6>You need to type a city or city name does not exist</h6>
-  //   );
-  // }
-
-  // useEffect(() => {
-  //   dispatch(allActions.weatherActions.setUser(user));
-  // }, []);
-
-  // const [city, setCity] = useState("");
-  // // const [weatherData, setWeatherData] = useState("");
-  // const weatherSelector = useSelector((state) => state.weatherReducer);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   getWeatherInfo();
-  // }, []);
-
-  // const errorMessage = "Please enter a city name...";
-  // const getWeatherInfo = async (e) => {
-  //   // e.preventDefault();
-  //   if (e) e.preventDefault();
-  //   if (city === "") {
-  //     console.log(errorMessage);
-  //   } else {
-  //     await getWeatherInfoAction(city);
-  //     console.log("weatherSelector ---..... >", weatherSelector);
-  //   }
-  // };
-  // const weatherDetails = "";
-  // if (weatherSelector && weatherSelector.hasOwnProperty("location")) {
-  //   const weatherDetails = (
-  //     <p>{weatherSelector.weatherReducer.data.location.countr}</p>
-  //   );
-  // } else {
-  //   const weatherDetails = (
-  //     <h6>You need to type a city or city name does not exist</h6>
-  //   );
-  // }
   return (
     <section>
       <header>
@@ -85,8 +82,12 @@ function App() {
         />
         <button type="submit">GO</button>
       </form>
-      <h5>WEATHER DETAILS...</h5>
-      {weatherDetails}
+      <br />
+      <ErrorMessage />
+      <br />
+      <section>
+        <WeatherSection />
+      </section>
     </section>
   );
 }

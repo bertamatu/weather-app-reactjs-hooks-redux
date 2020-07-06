@@ -1,25 +1,26 @@
-// const weatherReducer = (
-//   state = {
-//     weatherInfo: [],
-//   },
-//   action
-// ) => {
-//   if (action.type === "FETCH_WEATHER") {
-//     state = { ...state, weatherInfo: action.payload };
-//     console.log("wReducer return state >>>>>", state);
-//   }
-
-//   return state;
-// };
-// export default weatherReducer;
-
-const weatherReducer = (state = { weatherInfo: [] }, action) => {
+const weatherInfo = (
+  //initial state
+  state = {
+    info: {},
+  },
+  action
+) => {
+  console.log("ACTION", action.type, +new Date());
   switch (action.type) {
-    case "FETCH_WEATHER_DATA":
-      return (state = { ...state, weatherInfo: action.payload });
+    case "FETCH_WEATHER_PENDING":
+      state = { ...state, pending: true };
+      break;
+    case "FETCH_WEATHER_SUCCESS":
+      state = { ...state, info: action.payload, error: null, pending: false };
+      break;
+    case "FETCH_WEATHER_ERROR":
+      state = { ...state, error: action.error, pending: false, info: {} };
+      break;
     default:
-      return state;
   }
+
+  console.log("STATE", state);
+  return state;
 };
 
-export default weatherReducer;
+export default weatherInfo;
