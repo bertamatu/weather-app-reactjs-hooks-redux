@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 import fetchWeather from "./actions/fetchWeather";
 
 function ErrorMessage() {
@@ -60,19 +61,22 @@ function WeatherSection() {
 function App() {
   const [city, setCity] = useState("");
   const dispatch = useDispatch();
-
+  const pending = useSelector((state) => state.weatherInfo.pending);
   const getWeatherInfo = (e) => {
     if (e) e.preventDefault();
     dispatch(fetchWeather(city));
   };
 
+  if (pending === true) {
+    return <p>Loading...</p>;
+  }
   return (
     <section>
       <header>
         <h3>WeatherApp</h3>
       </header>
       <form onSubmit={getWeatherInfo}>
-        <input
+        <CityInput
           type="text"
           placeholder="City..."
           value={city}
@@ -93,3 +97,23 @@ function App() {
 }
 
 export default App;
+
+const CityInput = styled.input`
+  background: transparent;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  outline-color: rgb(204, 0, 102);
+  padding: 1.5rem;
+  ::placeholder,
+  ::-webkit-input-placeholder {
+    color: white;
+  }
+  :-ms-input-placeholder {
+    color: white;
+  }
+`;
+
+const Button = styled.button`
+  outline-color: rgb(204, 0, 102);
+  background-color: rgba(255, 255, 255, 0.05);
+`;
