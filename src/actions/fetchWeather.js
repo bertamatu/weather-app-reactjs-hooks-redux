@@ -10,7 +10,7 @@ export default function fetchWeather(city) {
       .then((result) => {
         //dispatch the action
         const data = result.data;
-        console.log("fetchWeather() DATA", data);
+        // console.log("fetchWeather() DATA", data);
         const { error } = data;
         if (error) {
           throw error;
@@ -19,7 +19,7 @@ export default function fetchWeather(city) {
       })
       .catch((error) => {
         dispatch({ type: "FETCH_WEATHER_ERROR", error: error });
-        console.log("fetchWeather() >>> ERROR", error);
+        // console.log("fetchWeather() >>> ERROR", error);
       });
   };
 }

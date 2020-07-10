@@ -35,11 +35,13 @@ function WeatherInformation(props) {
   return (
     <section>
       <p>
-        It is {weatherDescription} <img src={weatherImage} alt="weather" />
+        It is {weatherDescription}{" "}
+        <WeatherImage src={weatherImage} alt="weather" />
       </p>
       <br />
       <p>
-        The temperature is {info.temperature}C, but feels like {info.feelslike}
+        The temperature is {info.temperature}C, but it feels like{" "}
+        {info.feelslike}
         C.
       </p>
     </section>
@@ -84,7 +86,7 @@ function App() {
             setCity(e.target.value);
           }}
         />
-        <button type="submit">GO</button>
+        <Button type="submit">GO</Button>
       </form>
       <br />
       <ErrorMessage />
@@ -116,4 +118,9 @@ const CityInput = styled.input`
 const Button = styled.button`
   outline-color: rgb(204, 0, 102);
   background-color: rgba(255, 255, 255, 0.05);
+`;
+
+const WeatherImage = styled.img`
+  width: 80px;
+  border-radius: 50%;
 `;
