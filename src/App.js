@@ -38,9 +38,11 @@ function WeatherInformation(props) {
 
   return (
     <section>
-      <p>
-        {info.temperature} <span>&#8451;</span>
-      </p>
+      <TemperatureResultBar>
+        <Temperature>{info.temperature}</Temperature>
+        <span>&#8451;</span>
+      </TemperatureResultBar>
+      <br />
       <span>
         <WeatherImage src={weatherImage} alt="weather" />
       </span>
@@ -58,7 +60,6 @@ function WeatherSection() {
   const weatherInfo = useSelector((state) => state.weatherInfo.info);
   const { location, current } = weatherInfo;
 
-  console.log("WEATHER SECTION", weatherInfo, +new Date());
   return (
     <section>
       <WeatherInformation info={current} />
@@ -79,10 +80,7 @@ function App() {
     return <p>Loading...</p>;
   }
   return (
-    <section>
-      <header>
-        <h3>WeatherApp</h3>
-      </header>
+    <AppContainer>
       <form onSubmit={getWeatherInfo}>
         <CityInput
           type="text"
@@ -100,11 +98,27 @@ function App() {
       <section>
         <WeatherSection />
       </section>
-    </section>
+    </AppContainer>
   );
 }
 
 export default App;
+
+const AppContainer = styled.section`
+  height: 100vh;
+  background: #2c3e50; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #fd746c,
+    #2c3e50
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #fd746c,
+    #2c3e50
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+`;
 
 const CityInput = styled.input`
   background: transparent;
@@ -112,6 +126,7 @@ const CityInput = styled.input`
   border: none;
   outline-color: rgb(204, 0, 102);
   padding: 1.5rem;
+  margin-top: 4rem;
   ::placeholder,
   ::-webkit-input-placeholder {
     color: white;
@@ -120,15 +135,30 @@ const CityInput = styled.input`
     color: white;
   }
 `;
-
 const Button = styled.button`
-  outline-color: rgb(204, 0, 102);
+  border: none;
+  /* outline-color: rgb(204, 0, 102); */
   background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  color: white;
+  font-weight: 600;
 `;
-
+const TemperatureResultBar = styled.p`
+  display: flex;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.3);
+`;
+const Temperature = styled.p`
+  padding: 0;
+  margin: 0;
+  font-size: 9rem;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 100;
+`;
 const WeatherImage = styled.img`
   width: 80px;
   border-radius: 50%;
+  opacity: 0.3;
 `;
 
 // current:

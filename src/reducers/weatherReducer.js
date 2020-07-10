@@ -5,7 +5,6 @@ const weatherInfo = (
   },
   action
 ) => {
-  console.log("ACTION", action.type, +new Date());
   switch (action.type) {
     case "FETCH_WEATHER_PENDING":
       state = { ...state, pending: true };
@@ -18,8 +17,6 @@ const weatherInfo = (
       break;
     default:
   }
-
-  console.log("STATE", state);
   return state;
 };
 
