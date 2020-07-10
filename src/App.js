@@ -18,7 +18,11 @@ function Location(props) {
   const location = props.location;
   return (
     <section>
-      In {location.name}, {location.country} (Lang:{location.lat}, Lon:
+      {location.localtime}
+      <br />
+      {location.name},{location.country}
+      <br />
+      (Lang:{location.lat}, Lon:
       {location.lon})
     </section>
   );
@@ -35,14 +39,16 @@ function WeatherInformation(props) {
   return (
     <section>
       <p>
-        It is {weatherDescription}{" "}
-        <WeatherImage src={weatherImage} alt="weather" />
+        {info.temperature} <span>&#8451;</span>
       </p>
-      <br />
+      <span>
+        <WeatherImage src={weatherImage} alt="weather" />
+      </span>
+      {weatherDescription}
+      <p>Humidity: {info.humidity}%</p>
       <p>
-        The temperature is {info.temperature}C, but it feels like{" "}
-        {info.feelslike}
-        C.
+        feels like {info.feelslike}
+        <span>&#8451;</span>
       </p>
     </section>
   );
@@ -55,8 +61,8 @@ function WeatherSection() {
   console.log("WEATHER SECTION", weatherInfo, +new Date());
   return (
     <section>
-      <Location location={location} />
       <WeatherInformation info={current} />
+      <Location location={location} />
     </section>
   );
 }
@@ -124,3 +130,34 @@ const WeatherImage = styled.img`
   width: 80px;
   border-radius: 50%;
 `;
+
+// current:
+// cloudcover: 100;
+// feelslike: 18;
+// humidity: 83;
+// is_day: "no";
+// observation_time: "08:16 PM";
+// precip: 2;
+// pressure: 1009;
+// temperature: 18;
+// uv_index: 1;
+// visibility: 10;
+// weather_code: 296;
+// weather_descriptions: ["Light Rain Shower"];
+// weather_icons: [
+//   "https://assets.weatherstack.com/images/wsymbols01_…_64/wsymbol_0033_cloudy_with_light_rain_night.png",
+// ];
+// wind_degree: 197;
+// wind_dir: "SSW";
+// wind_speed: 0;
+
+// location:
+// country: "Lithuania";
+// lat: "54.900";
+// localtime: "2020-07-10 23:16";
+// localtime_epoch: 1594422960;
+// lon: "23.900";
+// name: "Kaunas";
+// region: "Kauno Apskritis";
+// timezone_id: "Europe/Vilnius";
+// utc_offset: "3.0";
