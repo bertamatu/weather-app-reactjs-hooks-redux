@@ -18,12 +18,11 @@ function Location(props) {
   const location = props.location;
   return (
     <section>
-      {location.localtime}
+      <h6>{location.localtime}</h6>
       <br />
       {location.name},{location.country}
       <br />
-      (Lang:{location.lat}, Lon:
-      {location.lon})
+      Lang: {location.lat}, Lon: {location.lon}
     </section>
   );
 }
@@ -42,16 +41,17 @@ function WeatherInformation(props) {
         <Temperature>{info.temperature}</Temperature>
         <span>&#8451;</span>
       </TemperatureResultBar>
+      <FeelsLikeTemp>
+        ... feels like {info.feelslike}
+        <span>&#8451;</span>
+      </FeelsLikeTemp>
+
       <br />
       <span>
         <WeatherImage src={weatherImage} alt="weather" />
       </span>
-      {weatherDescription}
+      <WeatherDescription>{weatherDescription}</WeatherDescription>
       <p>Humidity: {info.humidity}%</p>
-      <p>
-        feels like {info.feelslike}
-        <span>&#8451;</span>
-      </p>
     </section>
   );
 }
@@ -152,13 +152,23 @@ const Temperature = styled.p`
   padding: 0;
   margin: 0;
   font-size: 9rem;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-weight: 100;
 `;
 const WeatherImage = styled.img`
   width: 80px;
   border-radius: 50%;
   opacity: 0.3;
+`;
+
+const FeelsLikeTemp = styled.p`
+  font-weight: 100;
+  font-size: 0.8rem;
+`;
+
+const WeatherDescription = styled.p`
+  font-weight: 100;
+  font-size: 0.8rem;
 `;
 
 // current:
