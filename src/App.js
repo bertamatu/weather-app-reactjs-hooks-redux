@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { GiWindTurbine, GiThermometerHot } from "react-icons/gi";
@@ -26,7 +26,9 @@ function Location(props) {
       <LocationIcon />
       <br />
       <LocationName>
-        {location.name},{location.country}
+        {location.name},
+        <br />
+        {location.country}
       </LocationName>
       {/* <br />
       Lang: {location.lat}, Lon: {location.lon} */}
@@ -48,24 +50,20 @@ function WeatherInformation(props) {
         <Temperature>{info.temperature}</Temperature>
         <span>&#8451;</span>
       </TemperatureResultBar>
-      <WeatherDescription>
+      <WeatherDescription style={{ fontWeight: 600 }}>
         {weatherDescription}. Feels like {info.feelslike}
         <span>&#8451;</span>.
       </WeatherDescription>
-      <br />
-      <br />
       <ComfortLevelData>
-        {/* <WeatherImage src={weatherImage} alt="weather" /> */}
-        <DataIcon />
-        <section>
-          <WeatherDescription>
-            Cloudcover: {info.cloudcover}%
-            <br />
-            UV index: {info.uv_index}
-            <br />
-            Humidity: {info.humidity} %
-          </WeatherDescription>
-        </section>
+        <WeatherImage src={weatherImage} alt="weather" />
+        {/* <DataIcon /> */}
+        <WeatherDescription>
+          Cloud cover: {info.cloudcover}%
+          <br />
+          UV index: {info.uv_index}
+          <br />
+          Humidity: {info.humidity} %
+        </WeatherDescription>
       </ComfortLevelData>
       <WindData>
         <WindIcon />
@@ -93,13 +91,15 @@ function WeatherSection() {
 }
 function App() {
   const [city, setCity] = useState("");
+  const textInput = useRef();
   const dispatch = useDispatch();
   const pending = useSelector((state) => state.weatherInfo.pending);
+
   const getWeatherInfo = (e) => {
     if (e) e.preventDefault();
     dispatch(fetchWeather(city));
-    return (e.target.value = " ");
   };
+  const clearInput = () => (textInput.current.value = "");
 
   if (pending === true) {
     return <Loader></Loader>;
@@ -111,11 +111,14 @@ function App() {
           type="text"
           placeholder="City..."
           value={city}
+          ref={textInput}
           onChange={(e) => {
             setCity(e.target.value);
           }}
         />
-        <Button type="submit">GO</Button>
+        <Button type="submit" onClick={clearInput}>
+          GO
+        </Button>
       </form>
       <br />
       <ErrorMessage />
@@ -181,21 +184,20 @@ const LocationIcon = styled(GoLocation)`
   opacity: 0.3;
 `;
 const LocationName = styled.p`
-  margin: 0;
-  margin-bottom: 2rem;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 500;
 `;
-
 const TemperatureResultBar = styled.p`
   display: flex;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.4);
 `;
 const Temperature = styled.p`
   padding: 0;
   margin: 0;
-  font-size: 9rem;
+  font-size: 6rem;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-weight: 100;
 `;
@@ -206,9 +208,10 @@ const ComfortLevelData = styled.section`
   align-items: center;
 `;
 const WeatherImage = styled.img`
-  height: 70px;
+  width: 60px;
   border-radius: 50%;
-  opacity: 0.5;
+  border: 3px solid white;
+  opacity: 0.7;
   filter: grayscale(100%);
 `;
 const WeatherDescription = styled.p`
@@ -216,10 +219,11 @@ const WeatherDescription = styled.p`
   text-transform: uppercase;
   font-size: 0.8rem;
 `;
-const DataIcon = styled(GiThermometerHot)`
-  font-size: 5rem;
-  opacity: 0.5;
-`;
+// const DataIcon = styled(GiThermometerHot)`
+//   font-size: 5rem;
+//   opacity: 0.5;
+// `;
+
 const WindData = styled.section`
   display: flex;
   justify-content: center;
