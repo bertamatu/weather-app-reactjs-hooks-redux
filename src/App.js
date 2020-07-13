@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import fetchWeather from "./actions/fetchWeather";
+import { GiWindTurbine } from "react-icons/gi";
+import { TiWeatherSunny } from "react-icons/ti";
+import { WiHumidity, WiDegrees, WiTime10 } from "react-icons/wi";
+import { MdVisibility } from "react-icons/md";
+import { BsCloud } from "react-icons/bs";
+import { GoLocation } from "react-icons/go";
 
 function ErrorMessage() {
   const weatherError = useSelector((state) => state.weatherInfo.error);
@@ -18,7 +24,10 @@ function Location(props) {
   const location = props.location;
   return (
     <section>
-      <h6>{location.localtime}</h6>
+      <WiTime10 />
+      {location.localtime}
+      <br />
+      <GoLocation />
       <br />
       {location.name},{location.country}
       <br />
@@ -38,20 +47,33 @@ function WeatherInformation(props) {
   return (
     <section>
       <TemperatureResultBar>
-        <Temperature>{info.temperature}</Temperature>
-        <span>&#8451;</span>
+        <Temperature>
+          {info.temperature} <WiDegrees />
+        </Temperature>
+        {/* <span>&#8451;</span> */}
       </TemperatureResultBar>
-      <FeelsLikeTemp>
-        ... feels like {info.feelslike}
-        <span>&#8451;</span>
-      </FeelsLikeTemp>
-
+      {/* farenheit */}
+      <p>Comfort level</p>
       <br />
       <span>
         <WeatherImage src={weatherImage} alt="weather" />
       </span>
       <WeatherDescription>{weatherDescription}</WeatherDescription>
-      <p>Humidity: {info.humidity}%</p>
+      <FeelsLikeTemp>
+        ... feels like {info.feelslike}
+        <span>&#8451;</span>
+      </FeelsLikeTemp>
+      <MdVisibility />
+      Visibility: {info.visibility}
+      <BsCloud />
+      Cloudcover: {info.cloudcover}
+      <TiWeatherSunny />
+      UV index: {info.uv_index}
+      <WiHumidity />
+      Humidity: {info.humidity}%<p>Wind</p>
+      <GiWindTurbine />
+      Speed: {info.wind_speed}
+      Direction: {info.wind_dir}
     </section>
   );
 }
@@ -77,7 +99,12 @@ function App() {
   };
 
   if (pending === true) {
-    return <p>Loading...</p>;
+    return (
+      <img
+        src="https://media.giphy.com/media/l0HlFhR3LOrKljgkM/giphy.gif"
+        alt=""
+      />
+    );
   }
   return (
     <AppContainer>
@@ -105,7 +132,7 @@ function App() {
 export default App;
 
 const AppContainer = styled.section`
-  height: 100vh;
+  /* height: 100vh; */
   background: #2c3e50; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom,
