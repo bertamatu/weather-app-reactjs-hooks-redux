@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# api key
+ .env
+
 # testing
 /coverage
 
@@ -22,5 +25,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#api key
- .env
