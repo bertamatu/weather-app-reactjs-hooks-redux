@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { keyframes } from "styled-components";
+import { GiWindTurbine, GiThermometerHot } from "react-icons/gi";
+import { GoLocation, GoGraph } from "react-icons/go";
 import fetchWeather from "./actions/fetchWeather";
-import { GiWindTurbine } from "react-icons/gi";
-import { TiWeatherSunny } from "react-icons/ti";
-import { WiHumidity, WiDegrees, WiTime10 } from "react-icons/wi";
-import { MdVisibility } from "react-icons/md";
-import { BsCloud } from "react-icons/bs";
-import { GoLocation } from "react-icons/go";
 
 function ErrorMessage() {
   const weatherError = useSelector((state) => state.weatherInfo.error);
@@ -24,14 +20,16 @@ function Location(props) {
   const location = props.location;
   return (
     <section>
-      <WiTime10 />
+      {/* <WiTime10 />
       {location.localtime}
+      <br /> */}
+      <LocationIcon />
       <br />
-      <GoLocation />
-      <br />
-      {location.name},{location.country}
-      <br />
-      Lang: {location.lat}, Lon: {location.lon}
+      <LocationName>
+        {location.name},{location.country}
+      </LocationName>
+      {/* <br />
+      Lang: {location.lat}, Lon: {location.lon} */}
     </section>
   );
 }
@@ -47,34 +45,37 @@ function WeatherInformation(props) {
   return (
     <section>
       <TemperatureResultBar>
-        <Temperature>
-          {info.temperature}
-          {/* <WiDegrees /> */}
-        </Temperature>
+        <Temperature>{info.temperature}</Temperature>
         <span>&#8451;</span>
       </TemperatureResultBar>
-      <p>Comfort level</p>
+      <WeatherDescription>
+        {weatherDescription}. Feels like {info.feelslike}
+        <span>&#8451;</span>.
+      </WeatherDescription>
       <br />
-      <span>
-        <WeatherImage src={weatherImage} alt="weather" />
-      </span>
-      <WeatherDescription>{weatherDescription}</WeatherDescription>
-      <FeelsLikeTemp>
-        ... feels like {info.feelslike}
-        <span>&#8451;</span>
-      </FeelsLikeTemp>
-      <MdVisibility />
-      Visibility: {info.visibility}
-      <BsCloud />
-      Cloudcover: {info.cloudcover}
-      <TiWeatherSunny />
-      UV index: {info.uv_index}
-      <WiHumidity />
-      Humidity: {info.humidity}%<p>Wind</p>
-      {/* WIND ICON */}
-      <WindIcon />
-      Speed: {info.wind_speed}
-      Direction: {info.wind_dir}
+      <br />
+      <ComfortLevelData>
+        {/* <WeatherImage src={weatherImage} alt="weather" /> */}
+        <DataIcon />
+        <section>
+          <WeatherDescription>
+            Cloudcover: {info.cloudcover}%
+            <br />
+            UV index: {info.uv_index}
+            <br />
+            Humidity: {info.humidity} %
+          </WeatherDescription>
+        </section>
+      </ComfortLevelData>
+      <WindData>
+        <WindIcon />
+        <WeatherDescription>
+          <p>Wind</p>
+          Speed: {info.wind_speed} m/s
+          <br />
+          Direction: {info.wind_dir}
+        </WeatherDescription>
+      </WindData>
     </section>
   );
 }
@@ -97,6 +98,7 @@ function App() {
   const getWeatherInfo = (e) => {
     if (e) e.preventDefault();
     dispatch(fetchWeather(city));
+    return (e.target.value = " ");
   };
 
   if (pending === true) {
@@ -147,16 +149,17 @@ const Loader = styled.div`
   width: 100px;
   height: 100px;
   opacity: 0.3;
+  animation: spin 1s linear infinite;
   -webkit-animation: spin 1s linear infinite;
   animation-name: ${LoaderAnimation};
 `;
+
 const CityInput = styled.input`
   background: transparent;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.2);
   border: none;
   outline-color: white;
   padding: 1.5rem;
-  margin-top: 4rem;
   ::placeholder,
   ::-webkit-input-placeholder {
     color: white;
@@ -168,11 +171,22 @@ const CityInput = styled.input`
 const Button = styled.button`
   border: none;
   outline-color: white;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.2);
   padding: 1.5rem;
   color: white;
   font-weight: 600;
 `;
+const LocationIcon = styled(GoLocation)`
+  font-size: 2rem;
+  opacity: 0.3;
+`;
+const LocationName = styled.p`
+  margin: 0;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: 300;
+`;
+
 const TemperatureResultBar = styled.p`
   display: flex;
   justify-content: center;
@@ -185,53 +199,33 @@ const Temperature = styled.p`
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-weight: 100;
 `;
+const ComfortLevelData = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
 const WeatherImage = styled.img`
-  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  /* opacity: 0.3; */
+  opacity: 0.5;
   filter: grayscale(100%);
 `;
-
-const FeelsLikeTemp = styled.p`
-  font-weight: 100;
-  font-size: 0.8rem;
-`;
-
 const WeatherDescription = styled.p`
-  font-weight: 100;
+  font-weight: 200;
+  text-transform: uppercase;
   font-size: 0.8rem;
 `;
-
-const WindIcon = styled(GiWindTurbine)`
-  font-size: 6rem;
+const DataIcon = styled(GiThermometerHot)`
+  font-size: 5rem;
+  opacity: 0.5;
 `;
-// current:
-// cloudcover: 100;
-// feelslike: 18;
-// humidity: 83;
-// is_day: "no";
-// observation_time: "08:16 PM";
-// precip: 2;
-// pressure: 1009;
-// temperature: 18;
-// uv_index: 1;
-// visibility: 10;
-// weather_code: 296;
-// weather_descriptions: ["Light Rain Shower"];
-// weather_icons: [
-//   "https://assets.weatherstack.com/images/wsymbols01_…_64/wsymbol_0033_cloudy_with_light_rain_night.png",
-// ];
-// wind_degree: 197;
-// wind_dir: "SSW";
-// wind_speed: 0;
-
-// location:
-// country: "Lithuania";
-// lat: "54.900";
-// localtime: "2020-07-10 23:16";
-// localtime_epoch: 1594422960;
-// lon: "23.900";
-// name: "Kaunas";
-// region: "Kauno Apskritis";
-// timezone_id: "Europe/Vilnius";
-// utc_offset: "3.0";
+const WindData = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const WindIcon = styled(GiWindTurbine)`
+  font-size: 5rem;
+  opacity: 0.5;
+`;
