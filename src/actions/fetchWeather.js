@@ -1,11 +1,14 @@
 import axios from "axios";
+require("dotenv").config();
 
 export default function fetchWeather(city) {
   return function (dispatch) {
+    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+
     dispatch({ type: "FETCH_WEATHER_PENDING" });
     return axios
       .get(
-        `http://api.weatherstack.com/current?access_key=cd490f1761d42b116cbb4a0d2dfc84bf&query=${city}`
+        `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${city}`
       )
       .then((result) => {
         const data = result.data;
