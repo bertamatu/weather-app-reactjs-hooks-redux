@@ -183,22 +183,22 @@ const LocationIcon = styled(GoLocation)`
   font-size: 2rem;
   opacity: 0.3;
 `;
-const LocationName = styled.p`
+const LocationName = styled.section`
   font-size: 0.8rem;
   margin-bottom: 1rem;
   text-transform: uppercase;
   font-weight: 500;
 `;
-const TemperatureResultBar = styled.p`
+const TemperatureResultBar = styled.section`
   display: flex;
   justify-content: center;
   color: rgba(255, 255, 255, 0.4);
 `;
-const Temperature = styled.p`
+const Temperature = styled.section`
   padding: 0;
   margin: 0;
   font-size: 6rem;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 100;
 `;
 const ComfortLevelData = styled.section`
@@ -214,10 +214,11 @@ const WeatherImage = styled.img`
   opacity: 0.7;
   filter: grayscale(100%);
 `;
-const WeatherDescription = styled.p`
+const WeatherDescription = styled.section`
   font-weight: 200;
   text-transform: uppercase;
   font-size: 0.8rem;
+  margin: 1rem;
 `;
 // const DataIcon = styled(GiThermometerHot)`
 //   font-size: 5rem;
