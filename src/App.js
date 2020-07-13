@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import fetchWeather from "./actions/fetchWeather";
 import { GiWindTurbine } from "react-icons/gi";
 import { TiWeatherSunny } from "react-icons/ti";
@@ -48,11 +48,11 @@ function WeatherInformation(props) {
     <section>
       <TemperatureResultBar>
         <Temperature>
-          {info.temperature} <WiDegrees />
+          {info.temperature}
+          {/* <WiDegrees /> */}
         </Temperature>
-        {/* <span>&#8451;</span> */}
+        <span>&#8451;</span>
       </TemperatureResultBar>
-      {/* farenheit */}
       <p>Comfort level</p>
       <br />
       <span>
@@ -71,7 +71,8 @@ function WeatherInformation(props) {
       UV index: {info.uv_index}
       <WiHumidity />
       Humidity: {info.humidity}%<p>Wind</p>
-      <GiWindTurbine />
+      {/* WIND ICON */}
+      <WindIcon />
       Speed: {info.wind_speed}
       Direction: {info.wind_dir}
     </section>
@@ -84,8 +85,8 @@ function WeatherSection() {
 
   return (
     <section>
-      <WeatherInformation info={current} />
       <Location location={location} />
+      <WeatherInformation info={current} />
     </section>
   );
 }
@@ -99,12 +100,7 @@ function App() {
   };
 
   if (pending === true) {
-    return (
-      <img
-        src="https://media.giphy.com/media/l0HlFhR3LOrKljgkM/giphy.gif"
-        alt=""
-      />
-    );
+    return <Loader></Loader>;
   }
   return (
     <AppContainer>
@@ -132,26 +128,33 @@ function App() {
 export default App;
 
 const AppContainer = styled.section`
-  /* height: 100vh; */
-  background: #2c3e50; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to bottom,
-    #fd746c,
-    #2c3e50
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to bottom,
-    #fd746c,
-    #2c3e50
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100%;
   color: white;
 `;
-
+const LoaderAnimation = keyframes`
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+`;
+const Loader = styled.div`
+  margin: 0 auto;
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px dotted white;
+  width: 100px;
+  height: 100px;
+  opacity: 0.3;
+  -webkit-animation: spin 1s linear infinite;
+  animation-name: ${LoaderAnimation};
+`;
 const CityInput = styled.input`
   background: transparent;
   background-color: rgba(255, 255, 255, 0.05);
   border: none;
-  outline-color: rgb(204, 0, 102);
+  outline-color: white;
   padding: 1.5rem;
   margin-top: 4rem;
   ::placeholder,
@@ -164,7 +167,7 @@ const CityInput = styled.input`
 `;
 const Button = styled.button`
   border: none;
-  /* outline-color: rgb(204, 0, 102); */
+  outline-color: white;
   background-color: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   color: white;
@@ -183,9 +186,10 @@ const Temperature = styled.p`
   font-weight: 100;
 `;
 const WeatherImage = styled.img`
-  width: 80px;
+  width: 70px;
   border-radius: 50%;
-  opacity: 0.3;
+  /* opacity: 0.3; */
+  filter: grayscale(100%);
 `;
 
 const FeelsLikeTemp = styled.p`
@@ -198,6 +202,9 @@ const WeatherDescription = styled.p`
   font-size: 0.8rem;
 `;
 
+const WindIcon = styled(GiWindTurbine)`
+  font-size: 6rem;
+`;
 // current:
 // cloudcover: 100;
 // feelslike: 18;
