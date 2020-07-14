@@ -1,8 +1,7 @@
 {
-  "homepage": "https://github.com/bertamatu/weather-app-reactjs-hooks-redux",
   "short_name": "React App",
   "name": "Create React App Sample",
-  "start_url": ".",
+  "start_url": "https://github.com/bertamatu/weather-app-reactjs-hooks-redux",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
