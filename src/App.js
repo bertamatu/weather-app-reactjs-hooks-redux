@@ -236,5 +236,5 @@ const WindData = styled.section`
 `;
 const WindIcon = styled(GiWindTurbine)`
   font-size: 5rem;
-  opacity: 0.5;
+  opacity: 0.7;
 `;
