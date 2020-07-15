@@ -57,7 +57,11 @@ function WeatherInformation(props) {
       </WeatherDescription>
 
       <ComfortLevelData>
-        <WeatherImage src={weatherImage} alt="weather" />
+        <WeatherImage
+          src={weatherImage}
+          alt="weather"
+          style={{ marginLeft: "25%" }}
+        />
         {/* <DataIcon /> */}
         <WeatherDescription>
           Cloud cover: {info.cloudcover}%
@@ -68,7 +72,7 @@ function WeatherInformation(props) {
         </WeatherDescription>
       </ComfortLevelData>
       <WindData>
-        <WindIcon />
+        <WindIcon style={{ marginLeft: "20%" }} />
         <WeatherDescription>
           <span style={{ fontWeight: "bold" }}>Wind</span>
           <br />
