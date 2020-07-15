@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled, { keyframes } from "styled-components";
-import { GiWindTurbine, GiThermometerHot } from "react-icons/gi";
-import { GoLocation, GoGraph } from "react-icons/go";
+import { GiWindTurbine } from "react-icons/gi";
+import { GoLocation } from "react-icons/go";
 import fetchWeather from "./actions/fetchWeather";
 
 function ErrorMessage() {
@@ -50,10 +50,12 @@ function WeatherInformation(props) {
         <Temperature>{info.temperature}</Temperature>
         <span>&#8451;</span>
       </TemperatureResultBar>
+
       <WeatherDescription style={{ fontWeight: 600 }}>
         {weatherDescription}. Feels like {info.feelslike}
         <span>&#8451;</span>.
       </WeatherDescription>
+
       <ComfortLevelData>
         <WeatherImage src={weatherImage} alt="weather" />
         {/* <DataIcon /> */}
@@ -68,7 +70,8 @@ function WeatherInformation(props) {
       <WindData>
         <WindIcon />
         <WeatherDescription>
-          <p>Wind</p>
+          <span style={{ fontWeight: "bold" }}>Wind</span>
+          <br />
           Speed: {info.wind_speed} m/s
           <br />
           Direction: {info.wind_dir}
@@ -202,10 +205,8 @@ const Temperature = styled.section`
   font-weight: 100;
 `;
 const ComfortLevelData = styled.section`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  text-align: justify;
 `;
 const WeatherImage = styled.img`
   width: 60px;
@@ -226,9 +227,8 @@ const WeatherDescription = styled.section`
 // `;
 
 const WindData = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  text-align: justify;
 `;
 const WindIcon = styled(GiWindTurbine)`
   font-size: 5rem;
