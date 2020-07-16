@@ -8,7 +8,7 @@ export default function fetchWeather(city) {
     dispatch({ type: "FETCH_WEATHER_PENDING" });
     return axios
       .get(
-        `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${city}`
+        `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${city}/`
       )
       .then((result) => {
         const data = result.data;
