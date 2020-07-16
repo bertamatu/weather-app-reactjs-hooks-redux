@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/bertamatu/weather-app-reactjs-hooks-redux/static/css/main.01d2c12d.chunk.css",
-    "main.js": "/bertamatu/weather-app-reactjs-hooks-redux/static/js/main.d9dc8034.chunk.js",
-    "main.js.map": "/bertamatu/weather-app-reactjs-hooks-redux/static/js/main.d9dc8034.chunk.js.map",
-    "runtime-main.js": "/bertamatu/weather-app-reactjs-hooks-redux/static/js/runtime-main.724290a8.js",
-    "runtime-main.js.map": "/bertamatu/weather-app-reactjs-hooks-redux/static/js/runtime-main.724290a8.js.map",
-    "static/js/2.6368fce2.chunk.js": "/bertamatu/weather-app-reactjs-hooks-redux/static/js/2.6368fce2.chunk.js",
-    "static/js/2.6368fce2.chunk.js.map": "/bertamatu/weather-app-reactjs-hooks-redux/static/js/2.6368fce2.chunk.js.map",
-    "index.html": "/bertamatu/weather-app-reactjs-hooks-redux/index.html",
-    "precache-manifest.d45fbe9fd24b57a343ba1ae0a9b549c6.js": "/bertamatu/weather-app-reactjs-hooks-redux/precache-manifest.d45fbe9fd24b57a343ba1ae0a9b549c6.js",
-    "service-worker.js": "/bertamatu/weather-app-reactjs-hooks-redux/service-worker.js",
-    "static/css/main.01d2c12d.chunk.css.map": "/bertamatu/weather-app-reactjs-hooks-redux/static/css/main.01d2c12d.chunk.css.map",
-    "static/js/2.6368fce2.chunk.js.LICENSE.txt": "/bertamatu/weather-app-reactjs-hooks-redux/static/js/2.6368fce2.chunk.js.LICENSE.txt"
+    "main.css": "/weather-app-reactjs-hooks-redux/static/css/main.01d2c12d.chunk.css",
+    "main.js": "/weather-app-reactjs-hooks-redux/static/js/main.a6f32e81.chunk.js",
+    "main.js.map": "/weather-app-reactjs-hooks-redux/static/js/main.a6f32e81.chunk.js.map",
+    "runtime-main.js": "/weather-app-reactjs-hooks-redux/static/js/runtime-main.c11d1536.js",
+    "runtime-main.js.map": "/weather-app-reactjs-hooks-redux/static/js/runtime-main.c11d1536.js.map",
+    "static/js/2.659ccbb8.chunk.js": "/weather-app-reactjs-hooks-redux/static/js/2.659ccbb8.chunk.js",
+    "static/js/2.659ccbb8.chunk.js.map": "/weather-app-reactjs-hooks-redux/static/js/2.659ccbb8.chunk.js.map",
+    "index.html": "/weather-app-reactjs-hooks-redux/index.html",
+    "precache-manifest.e96c4393dd71d6ef767d4a25b254b0ac.js": "/weather-app-reactjs-hooks-redux/precache-manifest.e96c4393dd71d6ef767d4a25b254b0ac.js",
+    "service-worker.js": "/weather-app-reactjs-hooks-redux/service-worker.js",
+    "static/css/main.01d2c12d.chunk.css.map": "/weather-app-reactjs-hooks-redux/static/css/main.01d2c12d.chunk.css.map",
+    "static/js/2.659ccbb8.chunk.js.LICENSE.txt": "/weather-app-reactjs-hooks-redux/static/js/2.659ccbb8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.724290a8.js",
-    "static/js/2.6368fce2.chunk.js",
+    "static/js/runtime-main.c11d1536.js",
+    "static/js/2.659ccbb8.chunk.js",
     "static/css/main.01d2c12d.chunk.css",
-    "static/js/main.d9dc8034.chunk.js"
+    "static/js/main.a6f32e81.chunk.js"
   ]
 }
