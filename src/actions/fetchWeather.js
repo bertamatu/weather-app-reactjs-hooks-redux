@@ -4,9 +4,7 @@ require("dotenv").config();
 export default function fetchWeather(city) {
   return function (dispatch) {
     const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-
-    const PROXY = "https://cors-anywhere.herokuapp.com/";
-    const API_URL = `${PROXY}http://api.weatherstack.com/current?access_key=${API_KEY}&query=${city}`;
+    const API_URL = `http://api.weatherstack.com/current?access_key=${API_KEY}&query=${city}`;
 
     dispatch({ type: "FETCH_WEATHER_PENDING" });
     return axios
